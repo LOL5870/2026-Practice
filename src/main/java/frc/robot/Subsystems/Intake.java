@@ -1,10 +1,13 @@
 package frc.robot.Subsystems;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import frc.robot.Constants.*;
 
 
 public class Intake extends SubsystemBase{
@@ -13,28 +16,46 @@ public class Intake extends SubsystemBase{
     public SparkMax intakeMotorR;
 
     public Intake(){
-        // Initialize the motors
-        // Use the variables in Constants.java for the motor ID and kBrushless for the type
+        // Initialize crap
+        intakeMotorL = new SparkMax(IntakeConstants.LeftID, MotorType.kBrushless);
+        intakeMotorR = new SparkMax(IntakeConstants.RightID, MotorType.kBrushless);
     }
 
     @Override
     public void periodic() {
-
+        SmartDashboard.putNumber("Intake Motor Left Speed", intakeMotorL.get());
+        SmartDashboard.putNumber("Intake Motor Right Speed", intakeMotorR.get());
     }
 
     public Command IntakeSpin(double speed){
         // Spin motors with the speed of the input
-        return null;
+        return run(() -> {
+            intakeMotorL.set(speed);
+            intakeMotorR.set(speed);
+        });
     }
 
     public Command IntakeReverse(double speed){
         // Spin motors in reverse with the speed of the input
-        return null;
+        return run(() -> {
+            intakeMotorL.set(-speed);
+            intakeMotorR.set(-speed);
+        });
     }
 
     public Command IntakeStop(){
-        //Stop the motor by setting speed to 0
-        return null;
+        //Stop the motor
+        return run(() -> {
+            intakeMotorL.stopMotor();
+            intakeMotorR.stopMotor();
+        });
     }
-    
+
+    public Command IntakeSpinL(double speed){
+        return run(() -> intakeMotorL.set(speed));
+    }
+
+    public Command IntakeSpinR(double speed){
+        return run(() -> intakeMotorR.set(speed));
+    }
 }
