@@ -1,22 +1,40 @@
 package frc.robot.Subsystems;
 
+import com.revrobotics.spark.SparkMax;
+
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-
-//CLASS HEADER
-//Variables:
-//  Left Motor, RightMotor 
-//Methods:
-// IntakeSpin(double speed) - Spins the motors foreward at a specified speed.
-// IntakeReverse(double speed) - Reverses direction of motor spin, and spins it at a specified speed. 
-// IntakeStop() - Stops the intake motors by setting the speed to 0. 
 
 
 public class Intake extends SubsystemBase{
 
-    @Override
-    public void periodic() {
+    public SparkMax intakeMotorL;
+    public SparkMax intakeMotorR;
+
+    public Intake(){
+        // Initialize the motors
+        // Use the variables in Constants.java for the motor ID and kBrushless for the type
     }
 
+    @Override
+    public void periodic() {
+
+    }
+
+    public Command IntakeSpin(double speed){
+        // Spin motors with the speed of the input
+        return null;
+    }
+
+    public Command IntakeReverse(double speed){
+        // Spin motors in reverse with the speed of the input
+        return null;
+    }
+
+    public Command IntakeStop(){
+        //Stop the motor by setting speed to 0
+        return null;
+    }
     
 }
