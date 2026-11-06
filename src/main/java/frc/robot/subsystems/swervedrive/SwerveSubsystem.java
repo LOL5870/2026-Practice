@@ -145,31 +145,10 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
+  public void periodic() {  
 
-    gyro = (AHRS) swerveDrive.getGyro().getIMU(); 
+    SmartDashboard.putNumber("X SPEED", xSpeed);
 
-    if(SmartDashboard.getBoolean("Reset Alerts", false)) { 
-      gyroConnectedAlert.set(false);
-      gyroDisconnectAlert.set(false);
-    }
-
-    if(!gyro.isConnected()) { 
-      gyroDisconnectAlert.set(true);
-      gyroConnectedAlert.set(false);
-    } else { 
-      gyroConnectedAlert.set(true);
-    }
-    String[] names = { "Front Left", "Front Right", "Back Left", "Back Right" };
-    // System.out.println(LimelightHelpers.getTA("limelight"));
-    SwerveModule[] modules = swerveDrive.getModules();
-    assert (modules.length == names.length);
-    for (int i = 0; i < modules.length; ++i) {
-      SmartDashboard.putNumber(names[i], modules[i].getAbsoluteEncoder().getAbsolutePosition());
-      SmartDashboard.putNumber(names[1], modules[1].getAbsoluteEncoder().getAbsolutePosition());
-    }
-    SmartDashboard.putData("Gyro", gyro);
-    SmartDashboard.putString("Odometry", getPose().toString());    
   }
 
   @Override
