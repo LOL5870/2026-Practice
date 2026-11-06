@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import swervelib.SwerveInputStream;
 
@@ -25,21 +27,23 @@ public class RobotContainer {
   final CommandXboxController driverXbox = new CommandXboxController(0);
   final CommandXboxController opXbox = new CommandXboxController(1);
   private Hopper hopper = new Hopper(); 
+  private Shooter shooter = new Shooter();
+
  
 
   // Swerve Initialization
-  public final SwerveSubsystem swerveSubsystem = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
-      "swerve"));
+  // public final SwerveSubsystem swerveSubsystem = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
+  //     "swerve"));
 
   private SendableChooser<Command> sendableChooser = new SendableChooser<>();
 
-  SwerveInputStream driveAngularVelocity = SwerveInputStream.of(swerveSubsystem.getSwerveDrive(),
-      () -> driverXbox.getLeftY() * -1,
-      () -> driverXbox.getLeftX() * -1)
-      .withControllerRotationAxis(driverXbox::getRightX)
-      .deadband(0.1)
-      .scaleTranslation(.60)
-      .allianceRelativeControl(true);
+  // SwerveInputStream driveAngularVelocity = SwerveInputStream.of(swerveSubsystem.getSwerveDrive(),
+  //     () -> driverXbox.getLeftY() * -1,
+  //     () -> driverXbox.getLeftX() * -1)
+  //     .withControllerRotationAxis(driverXbox::getRightX)
+  //     .deadband(0.1)
+  //     .scaleTranslation(.60)
+  //     .allianceRelativeControl(true);
     
 
   public RobotContainer() {
@@ -52,13 +56,25 @@ public class RobotContainer {
   private void configureBindings() {
 
     // Setup swervedrive command
-    Command driveFieldOrientedAnglularVelocity = swerveSubsystem.driveFieldOriented(driveAngularVelocity);
-    swerveSubsystem.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+    // Command driveFieldOrientedAnglularVelocity = swerveSubsystem.driveFieldOriented(driveAngularVelocity);
+    // swerveSubsystem.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
     // Reset gyro
-    driverXbox.x().onTrue(new InstantCommand(()-> swerveSubsystem.zeroGyro()));
-    opXbox.a().whileTrue(hopper.extendHopper()).whileFalse(hopper.stopHopper());
+    // driverXbox.start().onTrue(new InstantCommand(() -> swerveSubsystem.zeroGyro()));
 
+    opXbox.rightBumper().whileTrue(hopper.extendHopper()).onFalse(hopper.stopHopper());
+    opXbox.leftBumper().whileTrue(hopper.detractHopper()).onFalse(hopper.stopHopper());
+    opXbox.a().whileTrue(shooter.intakeCycle()).onFalse(shooter.stopIntake());
+    opXbox.y().whileTrue(shooter.shootCycle()).onFalse(shooter.stopShoot());
+    opXbox.povDown().whileTrue(shooter.ejectCycle()).onFalse(shooter.stopEject());
+    opXbox.rightTrigger().whileTrue(hopper.extendHopper()).onFalse(hopper.stopHopper());
+    opXbox.leftTrigger().whileTrue(hopper.detractHopper()).onFalse(hopper.stopHopper());
+
+    opXbox.x().whileTrue(new SequentialCommandGroup(
+      hopper.extendHopper().withTimeout(1.5).andThen(hopper.stopHopper()),
+      shooter.intakeCycle().withTimeout(2).andThen(shooter.stopIntake()),
+      shooter.shootCycle().withTimeout(4).andThen(shooter.stopShoot())
+    ));
   }
 
 
@@ -70,6 +86,6 @@ public class RobotContainer {
   }
   
   public void setMotorBrake(boolean brake) {
-    swerveSubsystem.setMotorBrake(brake);
+    // swerveSubsystem.setMotorBrake(brake);
   }
 }

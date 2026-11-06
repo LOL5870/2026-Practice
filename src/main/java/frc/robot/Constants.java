@@ -40,7 +40,9 @@ public static final int SHOOTER_LEFT=10;
 public static final int SHOOTER_RIGHT=14;
 public static final int INTAKE_FLAP=11;
 public static final int INDEXER = 12;
+public static final int GROUND_INTAKE = 13;
+
  }
 
- 
+
 }

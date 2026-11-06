@@ -20,13 +20,16 @@ public class Hopper extends SubsystemBase{
     }
 
     public Command extendHopper(){
+        SmartDashboard.putBoolean("HOPPER", true); 
         return null;
     }
 
     public Command detractHopper(){
+        SmartDashboard.putBoolean("HOPPER", true);
         return null;
     }
     public Command stopHopper(){
+        SmartDashboard.putBoolean("HOPPER", false); 
         return null;
     }
 
