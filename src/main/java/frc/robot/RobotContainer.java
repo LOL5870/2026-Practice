@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import swervelib.SwerveInputStream;
 
@@ -23,6 +24,7 @@ public class RobotContainer {
 
   final CommandXboxController driverXbox = new CommandXboxController(0);
   final CommandXboxController opXbox = new CommandXboxController(1);
+  private Hopper hopper = new Hopper(); 
  
 
   // Swerve Initialization
@@ -55,6 +57,7 @@ public class RobotContainer {
 
     // Reset gyro
     driverXbox.x().onTrue(new InstantCommand(()-> swerveSubsystem.zeroGyro()));
+    opXbox.a().whileTrue(hopper.extendHopper()).whileFalse(hopper.stopHopper());
 
   }
 

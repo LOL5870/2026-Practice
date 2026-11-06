@@ -30,4 +30,17 @@ public final class Constants {
     public static final double WHEEL_LOCK_TIME = 10; // seconds
   }
 
+  public static final class HopperConstants {
+    public static final int HOPPER_LEFT = 7;
+    public static final int HOPPER_RIGHT = 6;
+  }
+
+ public static final class ShooterConstants {
+public static final int SHOOTER_LEFT=10;
+public static final int SHOOTER_RIGHT=14;
+public static final int INTAKE_FLAP=11;
+public static final int INDEXER = 12;
+ }
+
+ 
 }
