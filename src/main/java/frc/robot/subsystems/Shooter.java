@@ -38,38 +38,31 @@ public class Shooter extends SubsystemBase {
 
     // CYCLES
     public Command intakeCycle() {
-        SmartDashboard.putBoolean("intakeCycle", true);
         return null;
     }
 
     public Command reverseShoot() {
-        SmartDashboard.putBoolean("reverseShoot", true);
         return null;
     }
 
     public Command ejectCycle() {
-        SmartDashboard.putBoolean("ejectCycle", true);
         return null;
     }
 
     public Command shootCycle() {
-        SmartDashboard.putBoolean("shootCycle", true);
         return null;
     }
 
     // STOP
     public Command stopIntake() {
-        SmartDashboard.putBoolean("intakeCycle", false);
         return null;
     }
 
     public Command stopEject() {
-        SmartDashboard.putBoolean("ejectCycle", false);
         return null;
     }
 
     public Command stopShoot() {
-        SmartDashboard.putBoolean("shootCyce", false);
         return null;
     }
 
