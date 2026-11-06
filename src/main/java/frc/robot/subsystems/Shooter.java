@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.Command;
 import java.util.function.Supplier;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 public class Shooter extends SubsystemBase {
 
@@ -38,59 +39,69 @@ public class Shooter extends SubsystemBase {
 
     // CYCLES
     public Command intakeCycle() {
-        SmartDashboard.putBoolean("intakeCycle", true);
-        return null;
+        return run(() -> {
+            SmartDashboard.putBoolean("intakeCycle", true);
+        });
     }
 
     public Command reverseShoot() {
-        SmartDashboard.putBoolean("reverseShoot", true);
-        return null;
+        return run(() -> {
+            SmartDashboard.putBoolean("reverseShoot", true);
+        });
     }
 
     public Command ejectCycle() {
-        SmartDashboard.putBoolean("ejectCycle", true);
-        return null;
+        return run(() -> {
+            SmartDashboard.putBoolean("ejectCycle", true);
+        });
     }
 
     public Command shootCycle() {
-        SmartDashboard.putBoolean("shootCycle", true);
-        return null;
+        return run(() -> {
+            SmartDashboard.putBoolean("shootCycle", true);
+
+        });
     }
 
     // STOP
     public Command stopIntake() {
-        SmartDashboard.putBoolean("intakeCycle", false);
-        return null;
+        return run(() -> {
+            SmartDashboard.putBoolean("intakeCycle", false);
+
+        });
     }
 
     public Command stopEject() {
-        SmartDashboard.putBoolean("ejectCycle", false);
-        return null;
+        return run(() -> {
+            SmartDashboard.putBoolean("ejectCycle", false);
+        });
     }
 
     public Command stopShoot() {
-        SmartDashboard.putBoolean("shootCyce", false);
-        return null;
+        return run(() -> {
+            SmartDashboard.putBoolean("shootCycle", false);
+        });
     }
 
     // TEST
     public Command testGroundIntake(Supplier<Double> speed) {
-        return null;
+        return new InstantCommand();
     }
 
     public Command testShooterLeft(Supplier<Double> speed) {
-        return null;
+        return new InstantCommand();
     }
 
     public Command testShooterRight(Supplier<Double> speed) {
-        return null;
+        return new InstantCommand();
     }
 
     public Command testIntakeFlap(Supplier<Double> speed) {
-        return null;
+        return new InstantCommand();
     }
 
     public Command testIndexer(Supplier<Double> speed) {
-        return null;
+        return new InstantCommand();
     }
+
 }
