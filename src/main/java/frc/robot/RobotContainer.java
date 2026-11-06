@@ -52,6 +52,10 @@ public class RobotContainer {
     // Setup swervedrive command
     Command driveFieldOrientedAnglularVelocity = swerveSubsystem.driveFieldOriented(driveAngularVelocity);
     swerveSubsystem.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+
+    // Reset gyro
+    driverXbox.x().onTrue(new InstantCommand(()-> swerveSubsystem.zeroGyro()));
+
   }
 
 

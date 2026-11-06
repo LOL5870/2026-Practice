@@ -34,6 +34,7 @@ import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
@@ -88,7 +89,7 @@ public class SwerveSubsystem extends SubsystemBase {
   public SwerveSubsystem(File directory) {
     boolean blueAlliance = false;
     Pose2d startingPose = blueAlliance ? new Pose2d(new Translation2d(Meter.of(1),
-        Meter.of(4)),
+        Meter.of(4)), 
         Rotation2d.fromDegrees(0))
         : new Pose2d(new Translation2d(Meter.of(16),
             Meter.of(4)),
@@ -148,8 +149,12 @@ public class SwerveSubsystem extends SubsystemBase {
   public void periodic() {  
 
     SmartDashboard.putNumber("X SPEED", xSpeed);
-
   }
+
+public void resetGyro (){
+gyro.reset();
+
+}
 
   @Override
   public void simulationPeriodic() {
