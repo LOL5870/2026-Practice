@@ -18,16 +18,24 @@ public class Hopper extends SubsystemBase {
         hopperR = new VictorSP(Constants.HopperConstants.HOPPER_RIGHT);
     }
 
+    // public Command extendHopper() {
+    //     return run(() -> {
+    //         SmartDashboard.putBoolean("HOPPER", true);
+    //     }).finallyDo(interrupted -> stopHopper());
+    // }
+
     public Command extendHopper() {
-        return run(() -> {
-            SmartDashboard.putBoolean("HOPPER", true);
-        }).finallyDo(interrupted -> stopHopper());
+        return startEnd(
+            ()-> SmartDashboard.putBoolean("HOPPER", true),
+            ()-> SmartDashboard.putBoolean("HOPPER", false)
+        );
     }
 
     public Command detractHopper() {
-        return run(() -> {
-            SmartDashboard.putBoolean("HOPPER", true);
-        });
+        return startEnd(
+            ()-> SmartDashboard.putBoolean("HOPPER", true),
+            ()-> SmartDashboard.putBoolean("HOPPER", false)
+        );
     }
 
     public Command stopHopper(){

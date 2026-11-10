@@ -70,7 +70,7 @@ public class RobotContainer {
     opXbox.rightTrigger().whileTrue(hopper.extendHopper()).onFalse(hopper.stopHopper());
     opXbox.leftTrigger().whileTrue(hopper.detractHopper()).onFalse(hopper.stopHopper());
 
-    opXbox.x().onTrue(new SequentialCommandGroup(
+    opXbox.x().whileTrue(new SequentialCommandGroup(
       hopper.extendHopper().withTimeout(1.5),
       shooter.intakeCycle().withTimeout(2),
       shooter.shootCycle().withTimeout(1)
